@@ -1,0 +1,33 @@
+.text
+main:
+	#la a0, x
+	#lw t0, 0(a0)
+	#lw t1, 4(a0)
+	li t0, 10
+	li t1, 369258147
+
+	mv s0, t0
+	mv s1, t1
+	li a1, 1
+	li t2, 0x2000
+loop:
+	mv s2, s1
+	and s3, s2, a1
+	srli s2, s2,10
+	and s4, s2, a1
+	xor s3,s3,s4
+	srli s2,s2,20
+	and s4,s2, a1
+	xor s3,s3,s4
+	srli s2,s2,1
+	and s4,s2,a1
+	xor s3,s3,s4
+	slli s3,s3,31
+	srli s1,s1,1
+	add s1,s3,s1
+	sw s1, 0(t2)
+	addi t2, t2, 4
+	addi s0, s0, -1
+	blt x0, s0, loop
+	
+.data:
